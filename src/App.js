@@ -120,7 +120,8 @@ class DisplayItem extends Component {
                    <CardTitle title={item.title} subtitle={item.major} />
                    <CardActions>
                      <FlatButton label="Interested" />
-                     <FlatButton label="Add to Wish List" />
+                     <FlatButton label="Wish List" />
+                     <FlatButton label="Delete" />
                    </CardActions>
                  </Card>
             </div>
@@ -131,7 +132,6 @@ class DisplayItem extends Component {
       )
       }
 }
-
 
 function Item(props){
   return(
@@ -145,6 +145,15 @@ function Item(props){
        <CardActions>
          <FlatButton label="Interested" />
          <FlatButton label="Add to Wish List" />
+         {
+           props.user ?
+             props.user.displayName === props.item.user ?
+             <FlatButton label="Delete" />
+             :
+             null
+            :
+            null
+         }
        </CardActions>
      </Card>
   )
@@ -248,7 +257,7 @@ class App extends Component {
                 this.state.items.map((item) => {
                   return (
                     <div className="col-xs-12 col-md-6 col-lg-4">
-                      <Item item = {item}/>
+                      <Item item = {item} user = {this.state.user}/>
                     </div>
                   )
                 })
