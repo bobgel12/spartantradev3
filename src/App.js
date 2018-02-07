@@ -6,8 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
 
 
 const style = {
@@ -36,7 +35,6 @@ class PostBook extends Component {
   }
   onSubmit(e){
       e.preventDefault();
-      console.log(this.state);
       let dbBooks = this.props.db.database().ref('/books');
       dbBooks.push({
         title: this.state.title,
@@ -133,30 +131,49 @@ class DisplayItem extends Component {
       }
 }
 
-function Item(props){
-  return(
-    <Card style={style}>
-       <CardHeader
-         title={props.item.user}
-         subtitle="SJSU"
-         avatar={props.item.url}
-       />
-       <CardTitle title={props.item.title} subtitle={props.item.major} />
-       <CardActions>
-         <FlatButton label="Interested" />
-         <FlatButton label="Add to Wish List" />
-         {
-           props.user ?
-             props.user.displayName === props.item.user ?
-             <FlatButton label="Delete" />
-             :
-             null
+class Item extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      item : props.item,
+      user : props.user,
+      db: props.db
+    }
+    this.removeItem = this.removeItem.bind(this);
+  }
+
+  removeItem(e){
+  e.preventDefault;
+  // let id = this.props.item.id;
+  let itemRef = this.state.db.database().ref(`/books/${this.props.item.id}`);
+  itemRef.remove();
+  }
+
+  render(){
+    return(
+      <Card style={style}>
+        <CardHeader
+          title={this.state.item.user}
+          subtitle="SJSU"
+          avatar={this.state.item.url}
+          />
+        <CardTitle title={this.state.item.title} subtitle={this.state.item.major} />
+        <CardActions>
+          <FlatButton label="Interested" />
+          <FlatButton label="WishList" />
+          {
+            this.props.user ?
+              this.props.user.displayName === this.state.item.user ?
+              <FlatButton label="Delete" onClick={this.removeItem}  />
+              :
+              null
             :
             null
-         }
-       </CardActions>
-     </Card>
-  )
+          }
+        </CardActions>
+      </Card>
+    )
+  }
 }
 
 
@@ -204,11 +221,6 @@ class App extends Component {
     })
   }
 
-  removeItem(itemId){
-  let itemRef = firebase.database().ref(`/items/${itemId}`);
-  itemRef.remove();
-  }
-
   logout(){
     this.auth.signOut()
     .then(() => {
@@ -223,10 +235,17 @@ class App extends Component {
     .then((result) => {
       const user = result.user;
       this.setState({user});
-      console.log(user);
     });
   }
 
+
+  componentDidMount() {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      }
+    });
+  }
 
   render() {
     return (
@@ -256,8 +275,8 @@ class App extends Component {
               {
                 this.state.items.map((item) => {
                   return (
-                    <div className="col-xs-12 col-md-6 col-lg-4">
-                      <Item item = {item} user = {this.state.user}/>
+                    <div className="col-xs-12 col-md-6 col-lg-4" key={item.id}>
+                      <Item item = {item} user = {this.state.user} db={firebase}/>
                     </div>
                   )
                 })
