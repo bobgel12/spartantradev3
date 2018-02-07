@@ -35,7 +35,7 @@ class PostBook extends Component {
   }
   onSubmit(e){
       e.preventDefault();
-      let dbBooks = this.props.db.database().ref('/books');
+      let dbBooks = this.props.db.database().ref(`/books/${this.props.user.email}/posts`);
       dbBooks.push({
         title: this.state.title,
         user: this.props.user.displayName,
@@ -144,9 +144,13 @@ class Item extends Component{
 
   removeItem(e){
   e.preventDefault;
-  // let id = this.props.item.id;
   let itemRef = this.state.db.database().ref(`/books/${this.props.item.id}`);
   itemRef.remove();
+  }
+
+
+  componentDidMount(){
+    console.log(this.props.item);
   }
 
   render(){
@@ -214,6 +218,8 @@ class App extends Component {
         id: item,
         title: values[item].title,
         user: values[item].user,
+        major: values[item].major,
+        url: values[item].url,
       })
     }
     this.setState({
