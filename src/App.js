@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 // import firebase, { auth, provider} from './firebase.js';
 import firebase from 'firebase';
@@ -237,9 +236,14 @@ class App extends Component {
        }
         <div className= "container">
           <div className="row">
-            <div className="col-xs-12 col-md-6 col-lg-4">
-              <PostBook db={firebase} user={this.state.user}/>
-            </div>
+            {
+              this.state.user ?
+              <div className="col-xs-12 col-md-6 col-lg-4">
+                    <PostBook db={firebase} user={this.state.user}/>
+              </div>
+              :
+              null
+            }
               {
                 this.state.items.map((item) => {
                   return (
