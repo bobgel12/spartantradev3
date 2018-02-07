@@ -259,8 +259,13 @@ class App extends Component {
 export default App;
 
 
-// 
+//
 //
 // <div>
 //   <DisplayItem db={firebase}/>
 // </div>
+
+
+
+
+// this is a change
