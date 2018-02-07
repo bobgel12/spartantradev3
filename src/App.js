@@ -240,15 +240,15 @@ class App extends Component {
             <div className="col-xs-12 col-md-6 col-lg-4">
               <PostBook db={firebase} user={this.state.user}/>
             </div>
-            <div className="col-xs-12 col-md-6 col-lg-4">
               {
                 this.state.items.map((item) => {
                   return (
-                    <Item item = {item}/>
+                    <div className="col-xs-12 col-md-6 col-lg-4">
+                      <Item item = {item}/>
+                    </div>
                   )
                 })
               }
-            </div>
           </div>
         </div>
       </MuiThemeProvider>
