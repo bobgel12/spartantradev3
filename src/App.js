@@ -6,7 +6,8 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import PostBook from './PostBook.js';
 import Item from './Item.js';
-
+import {List, ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 class App extends Component {
   constructor(props){
@@ -85,7 +86,21 @@ class App extends Component {
          this.state.user ?
          <AppBar
          title="SpartanTrade"
-         iconElementRight={<FlatButton onClick={this.logout} label="Log Out" />}
+         iconElementRight={
+           <List>
+             <ListItem
+                disabled={true}
+                children={
+                  <div>
+                    <Avatar src={this.state.user.photoURL} />
+                    <FlatButton onClick={this.logout} label="Log Out" />
+                  </div>
+                }
+               />
+
+           </List>
+         }
+         user={this.state.user}
          />
          :
          <AppBar

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Card from 'material-ui/Card';
 
 const style = {
-  height: 280,
+  height: 300,
   width: 280,
   margin:20,
   textAlign: 'center',
@@ -17,7 +18,8 @@ class PostBook extends Component {
     this.state = {
       title: '',
       user:'',
-      major:''
+      major:'',
+      description: ''
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -33,14 +35,15 @@ class PostBook extends Component {
       let dbBooks = this.props.db.database().ref('/books');
       dbBooks.push({
         title: this.state.title,
-        user: this.props.user.displayName,
         major: this.state.major,
+        description: this.state.description,
+        user: this.props.user.displayName,
         url: this.props.user.photoURL
       });
       this.setState({
         title: '',
-        user: '',
-        major: ''
+        major: '',
+        description:''
       });
     }
 
@@ -62,7 +65,14 @@ class PostBook extends Component {
               onChange={this.onChange}
               value={this.state.major}
             /><br />
-            <FlatButton label="Post book" fullWidth={true} onClick={this.onSubmit} />
+            <TextField
+              hintText="Description"
+              floatingLabelText="Description"
+              name="description"
+              onChange={this.onChange}
+              value={this.state.major}
+            /><br />
+          <RaisedButton label="Post book" fullWidth={true} onClick={this.onSubmit} primary = "true"/>
           </form>
        </Card>
     )

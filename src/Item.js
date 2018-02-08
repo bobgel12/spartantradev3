@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
-  height: 280,
+  height: 300,
   width: 280,
   margin:20,
   textAlign: 'center',
 };
+
+const buttonStyle = {
+  margin: 10
+}
 
 
 class Item extends Component{
@@ -42,12 +46,12 @@ class Item extends Component{
           />
         <CardTitle title={this.state.item.title} subtitle={this.state.item.major} />
         <CardActions>
-          <FlatButton label="Interested" />
-          <FlatButton label="WishList" />
+          <RaisedButton label="Interested" primary = "true"/>
+          <RaisedButton label="WishList" primary = "true"/>
           {
             this.props.user ?
               this.props.user.displayName === this.state.item.user ?
-              <FlatButton label="Delete" onClick={this.removeItem}  />
+              <RaisedButton label="Delete" onClick={this.removeItem} secondary={true} style = {buttonStyle}/>
               :
               null
             :
