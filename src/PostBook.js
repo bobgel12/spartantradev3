@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card from 'material-ui/Card';
 

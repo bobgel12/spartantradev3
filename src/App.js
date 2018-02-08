@@ -4,10 +4,11 @@ import firebase from 'firebase';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import PostBook from './PostBook.js';
-import Item from './Item.js';
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
+
+import DisplayItems from './DisplayItems.js';
+
 
 class App extends Component {
   constructor(props){
@@ -108,27 +109,7 @@ class App extends Component {
          iconElementRight={<FlatButton onClick={this.login} label="Log in" />}
          />
        }
-        <div className= "container">
-          <div className="row">
-            {
-              this.state.user ?
-              <div className="col-xs-12 col-md-6 col-lg-4">
-                    <PostBook db={firebase} user={this.state.user}/>
-              </div>
-              :
-              null
-            }
-              {
-                this.state.items.map((item) => {
-                  return (
-                    <div className="col-xs-12 col-md-6 col-lg-4" key={item.id}>
-                      <Item item = {item} user = {this.state.user} db={firebase}/>
-                    </div>
-                  )
-                })
-              }
-          </div>
-        </div>
+        <DisplayItems user = {this.state.user} items = {this.state.items} firebase = {firebase}/>
       </MuiThemeProvider>
     );
   }
