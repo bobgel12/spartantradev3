@@ -8,7 +8,6 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
 
-// else
 const style = {
   height: 280,
   width: 280,
@@ -74,61 +73,6 @@ class PostBook extends Component {
   }
 
 
-}
-
-class DisplayItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items:[]
-    }
-    let dbBooks = this.props.db.database().ref('/books');
-    dbBooks.on('value', snapshot => {
-      this.getData(snapshot.val());
-    })
-  }
-
-  getData(values){
-    let newState = [];
-    for (let item in values){
-      newState.push({
-        id: item,
-        title: values[item].title,
-        user: values[item].user,
-      })
-    }
-    this.setState({
-      items: newState
-    })
-  }
-
-  render(){
-    return(
-        <div>
-        {
-        this.state.items.map((item) => {
-          return(
-            <div className="col-xs-12 col-md-4" key={item.id}>
-                <Card style={style}>
-                   <CardHeader
-                     title={item.user}
-                     subtitle="SJSU"
-                     avatar={item.url}
-                   />
-                   <CardTitle title={item.title} subtitle={item.major} />
-                   <CardActions>
-                     <FlatButton label="Interested" />
-                     <FlatButton label="Wish List" />
-                     <FlatButton label="Delete" />
-                   </CardActions>
-                 </Card>
-            </div>
-          )
-        })
-      }
-        </div>
-      )
-      }
 }
 
 class Item extends Component{
