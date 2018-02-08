@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {Card, CardActions, CardHeader, CardTitle} from 'material-ui/Card';
 
+
 const style = {
   height: 280,
   width: 280,
@@ -34,7 +35,7 @@ class PostBook extends Component {
   }
   onSubmit(e){
       e.preventDefault();
-      let dbBooks = this.props.db.database().ref(`/books/${this.props.user.email}/posts`);
+      let dbBooks = this.props.db.database().ref('/books');
       dbBooks.push({
         title: this.state.title,
         user: this.props.user.displayName,
