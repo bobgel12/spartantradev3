@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import firebase from 'firebase';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -54,6 +55,10 @@ class App extends Component {
     });
   }
 
+  handleClick(){
+
+  }
+
 
   componentDidMount() {
 
@@ -82,35 +87,38 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-       {
-         this.state.user ?
-         <AppBar
-         title="SpartanTrade"
-         iconElementRight={
-           <List>
-             <ListItem
-                disabled={true}
-                children={
-                  <div>
-                    <Avatar src={this.state.user.photoURL} />
-                    <FlatButton onClick={this.logout} label="Log Out" />
-                  </div>
-                }
-               />
+      <Router>
+        <MuiThemeProvider>
+          {
+            this.state.user ?
+            <AppBar
+              title="SpartanTrade"
+              onTitleClick={this.handleClick}
+              iconElementRight={
+                <List>
+                  <ListItem
+                    disabled={true}
+                    children={
+                      <div>
+                        <Avatar src={this.state.user.photoURL} />
+                        <FlatButton onClick={this.logout} label="Log Out" />
+                      </div>
+                    }
+                    />
 
-           </List>
-         }
-         user={this.state.user}
-         />
-         :
-         <AppBar
-         title="SpartanTrade"
-         iconElementRight={<FlatButton onClick={this.login} label="Log in" />}
-         />
-       }
-        <DisplayItems user = {this.state.user} items = {this.state.items} firebase = {firebase}/>
-      </MuiThemeProvider>
+                </List>
+              }
+              user={this.state.user}
+              />
+            :
+            <AppBar
+              title="SpartanTrade"
+              iconElementRight={<FlatButton onClick={this.login} label="Log in" />}
+              />
+          }
+          <DisplayItems user = {this.state.user} items = {this.state.items} firebase = {firebase}/>
+        </MuiThemeProvider>
+      </Router>
     );
   }
 }
