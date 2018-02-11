@@ -65,6 +65,13 @@ class PostBook extends Component {
               value={this.state.major}
             /><br />
             <TextField
+              hintText="Price"
+              floatingLabelText="How much do you want to sell for?"
+              name="price"
+              onChange={this.onChange}
+              value={this.state.price}
+            /><br />
+            <TextField
               hintText="Description"
               floatingLabelText="Description"
               name="description"
