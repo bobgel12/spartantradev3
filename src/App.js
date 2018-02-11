@@ -28,6 +28,7 @@ class App extends Component {
         id: item,
         title: values[item].title,
         user: values[item].user,
+        price: values[item].price,
         major: values[item].major,
         url: values[item].url,
       })

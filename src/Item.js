@@ -44,7 +44,7 @@ class Item extends Component{
           subtitle="SJSU"
           avatar={this.state.item.url}
           />
-        <CardTitle title={this.state.item.title} subtitle={this.state.item.major} />
+        <CardTitle title={this.state.item.title} subtitle={this.state.item.major + " price " + this.state.item.price} />
         <CardActions>
           <RaisedButton label="Interested" primary = "true"/>
           <RaisedButton label="WishList" primary = "true"/>
