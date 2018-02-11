@@ -17,6 +17,7 @@ class PostBook extends Component {
     this.state = {
       title: '',
       user:'',
+      price:'',
       major:'',
       description: ''
     }
@@ -35,6 +36,7 @@ class PostBook extends Component {
       dbBooks.push({
         title: this.state.title,
         major: this.state.major,
+        price: this.state.price,
         description: this.state.description,
         user: this.props.user.displayName,
         url: this.props.user.photoURL
@@ -42,6 +44,7 @@ class PostBook extends Component {
       this.setState({
         title: '',
         major: '',
+        price: '',
         description:''
       });
     }
@@ -65,11 +68,18 @@ class PostBook extends Component {
               value={this.state.major}
             /><br />
             <TextField
+              hintText="Price"
+              floatingLabelText="How much do you want to sell for?"
+              name="price"
+              onChange={this.onChange}
+              value={this.state.price}
+            /><br />
+            <TextField
               hintText="Description"
               floatingLabelText="Description"
               name="description"
               onChange={this.onChange}
-              value={this.state.major}
+              value={this.state.description}
             /><br />
           <RaisedButton label="Post book" fullWidth={true} onClick={this.onSubmit} primary = "true"/>
           </form>
